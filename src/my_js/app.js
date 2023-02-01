@@ -1,7 +1,7 @@
-/*
-    Create by oskhar
-    don't copyright or copyleft
-*/
+import * as THREE from '../../node_modules/three/build/three.module.js';
+import {GLTFLoader} from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+
+let nama = prompt("Masukan nama anda");
 
 // (main) Class
 class App extends THREE.WebGLRenderer {
@@ -27,6 +27,15 @@ class App extends THREE.WebGLRenderer {
     // Method
     draw () {
 
+        this.action();
+        this.render(this.world, this.eye);
+        requestAnimationFrame(this.draw.bind(this));
+
+    }
+
+    action () {
+
+        // Action for move user & sun
         if (this.keyboard['w']) {
             this.world.user.depan();
             this.world.sun.depan();
@@ -34,7 +43,6 @@ class App extends THREE.WebGLRenderer {
             this.world.user.belakang();
             this.world.sun.belakang();
         }
-
         if (this.keyboard['a']) {
             this.world.user.kiri();
             this.world.sun.kiri();
@@ -43,23 +51,28 @@ class App extends THREE.WebGLRenderer {
             this.world.sun.kanan();
         }
 
+        // Action for move eye
+        if (this.eye.position.z - this.world.user.position.z > 14)
+            this.eye.gerakan(this.eye.position.z - this.world.user.position.z - 14, 0);
+        else if (this.eye.position.z - this.world.user.position.z < 8)
+            this.eye.gerakan(-8 + (this.eye.position.z - this.world.user.position.z), 0);
+        if (this.eye.position.x - this.world.user.position.x < -4)
+            this.eye.gerakan(0, 4 + this.eye.position.x - this.world.user.position.x);
+        else if (this.eye.position.x - this.world.user.position.x > 4)
+            this.eye.gerakan(0, -4 + (this.eye.position.x - this.world.user.position.x));
+
+        // Action for jump
         if (this.keyboard[' '] && this.world.user.rangeRender == 0) {
             this.world.user.rangeRender = 1;
         }
-
         if (this.world.user.rangeRender != 0) {
             this.world.user.jump();
             this.world.user.rangeRender = this.world.user.rangeRender <= 100 ? this.world.user.rangeRender + 1 : 0;
         }
 
-        requestAnimationFrame(this.draw.bind(this));
-        this.render(this.world, this.eye);
-
     }
 
 }
-
-
 
 // Class
 class MyWorld extends THREE.Scene {
@@ -72,6 +85,7 @@ class MyWorld extends THREE.Scene {
         // Create sun
         this.sun = new MySun();
         this.add(this.sun);
+        this.add(new THREE.AmbientLight(0xffffff, 0.2));
 
         // Create user
         this.user = new MyCube();
@@ -79,25 +93,45 @@ class MyWorld extends THREE.Scene {
 
         // Create ground
         this.layoutGround = new THREE.MeshLambertMaterial({
-            color: 0xffffff
+            color: 0x33cc99
         });
-        this.ground = new THREE.PlaneGeometry(500, 500, 100, 100);
+        this.ground = new THREE.PlaneGeometry(10, 100, 1, 5);
         this.meshGround = new THREE.Mesh(this.ground, this.layoutGround);
         this.meshGround.receiveShadow = true;
-        this.meshGround.position.set(0, -1, 0);
+        this.meshGround.position.set(0, -1, -40);
         this.meshGround.rotation.x = -Math.PI/2;
         this.add(this.meshGround);
 
-        // Create grid
-        this.grid = new THREE.GridHelper(100, 100, 0x0a0a0a, 0x000000);
-        this.grid.position.set(0, -1, 0);
-        this.add(this.grid);
+        // Create 3d object
+        new MyBlend('./lib/asset_3d/police.glb', this);
+    }
+
+    // Method
+    addInstance (obj, trans) {
+
+        this.tmpMesh = new THREE.InstancedMesh(
+
+            new THREE.BoxGeometry(1, 1, 1),
+            new THREE.MeshBasicMaterial({color: 0x00ff00}),
+            trans.length
+
+        );
+
+        for (let i = 0; i < trans.length; i++) {
+            this.tmpMatrix = new THREE.Matrix4().makeTranslation(trans[i][0], trans[i][1], trans[i][2]);
+            this.tmpMesh.setMatrixAt(i, this.tmpMatrix);
+        }
+
+        this.add(this.tmpMesh);
+
+    }
+
+    // Method
+    textDua ( message, parameters ) {
 
     }
 
 }
-
-
 
 // Class
 class MyEye extends THREE.PerspectiveCamera {
@@ -111,9 +145,15 @@ class MyEye extends THREE.PerspectiveCamera {
 
     }
 
+    // Method
+    gerakan (corz, corx) {
+
+        this.position.z -= corz;
+        this.position.x -= corx;
+
+    }
+
 }
-
-
 
 // Class
 class MySun extends THREE.SpotLight {
@@ -165,21 +205,21 @@ class MySun extends THREE.SpotLight {
 
 }
 
-
-
 // Class
 class MyCube extends THREE.Mesh {
 
     // Constructor
     constructor () {
 
-        super(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshPhongMaterial({
-            color: 0xffff00
+        super(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({
+            color: 0xff0ac0
         }));
-        this.position.set(0, -0.5, 0);
+
+        this.position.set(0, -0.75, 0);
         this.receiveShadow = true;
         this.castShadow = true;
         this.rangeRender = 0;
+        this.sekalaRoted = 0;
 
     }
 
@@ -230,6 +270,25 @@ class MyCube extends THREE.Mesh {
 
 }
 
+// Class
+class MyBlend extends GLTFLoader {
+
+    // Constructor
+    constructor (pathBlend, parentWorld) {
+
+        super();
+        var blendObj;
+        this.load(pathBlend, (result) => {
+            blendObj = result.scene.children[0];
+            blendObj.castShadow = true;
+            parentWorld.add(blendObj);
+        });
+
+    }
+
+
+}
+
 // Run
 let run = new App();
 
@@ -242,8 +301,9 @@ document.body.onkeyup = function (e) {
     run.keyboard[e.key] = false;
 }
 
-
-
-
-
-
+// User resize app
+document.body.onresize = function () {
+   run.setSize(innerWidth, innerHeight);
+   run.eye.aspect = innerWidth/innerHeight;
+   run.eye.updateProjectionMatrix();
+};
