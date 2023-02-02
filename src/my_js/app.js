@@ -155,8 +155,9 @@ class MyWorld extends THREE.Scene {
 
         new GLTFLoader().load(path, result => {
 
-            this.blendObj = result.scene.children[0];
+            this.blendObj = result.scene.children;
             this.blendObj.castShadow = true;
+            this.blendObj.receiveShadow = true;
             this.blendObj.position.set(setp[0], setp[1], setp[2]);
             this.blendObj.rotation.set(setr[0], setr[1], setr[2]);
             this.blendObj.scale.x += sets;
@@ -172,6 +173,7 @@ class MyWorld extends THREE.Scene {
     addLamp (x, y, z) {
 
         this.tmpLight.position.set(x, y, z);
+        this.tmpLight.castShadow = true;
         this.add(this.tmpLight);
 
     }
@@ -186,7 +188,7 @@ class MyEye extends THREE.PerspectiveCamera {
 
         super(fov, asp, nea, far);
         this.position.z = 10;
-        this.position.y = 2;
+        this.position.y = 1.5;
         this.rotation.x -= 0.1;
 
     }
@@ -269,7 +271,6 @@ class MyCube extends THREE.Mesh {
         this.receiveShadow = true;
         this.castShadow = true;
         this.rangeRender = 0;
-        this.sekalaRoted = 0;
 
     }
 
@@ -332,6 +333,15 @@ document.body.onkeyup = function (e) {
     run.keyboard[e.key] = false;
 }
 
+// User resize app
+document.body.onresize = function () {
+   run.setSize(innerWidth, innerHeight);
+   run.eye.aspect = innerWidth/innerHeight;
+   run.eye.updateProjectionMatrix();
+};
+
+// Mouse control
+
 // Analog control
 window.touchAnalog = function(event) {
     let x = 0, y = 0;
@@ -371,13 +381,6 @@ window.touchAnalog = function(event) {
 window.addEventListener('touchstart', touchAnalog, false);
 window.addEventListener('touchmove', touchAnalog, false);
 window.addEventListener('touchend', function (event) { run.keyboard = []; }, false);
-
-// User resize app
-document.body.onresize = function () {
-   run.setSize(innerWidth, innerHeight);
-   run.eye.aspect = innerWidth/innerHeight;
-   run.eye.updateProjectionMatrix();
-};
 
 // Mobile detect
 window.mobileCheck = function() {
