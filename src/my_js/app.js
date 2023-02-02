@@ -98,7 +98,8 @@ class MyWorld extends THREE.Scene {
 
         // Atribute
         super();
-        this.tmpLight = new THREE.PointLight(0x0066ff, 1, 50);
+        this.tmpLight = new THREE.PointLight(0x0066ff, 2);
+        this.background = new THREE.Color(0x111111);
 
         // Create sun
         this.sun = new MySun(besarLangkah);
@@ -126,7 +127,7 @@ class MyWorld extends THREE.Scene {
         // this.addBlend('./lib/asset_3d/lightpostHanging.glb', [3, 3, -10], [0, 0, 0], 2.5);
 
         // Create lamp
-        this.addLamp(3, 2.5, -10);
+        this.addLamp(3, 2.5, -20);
 
     }
 
@@ -155,14 +156,14 @@ class MyWorld extends THREE.Scene {
 
         new GLTFLoader().load(path, result => {
 
-            this.blendObj = result.scene.children;
-            this.blendObj.castShadow = true;
-            this.blendObj.receiveShadow = true;
+            this.blendObj = result.scene;
             this.blendObj.position.set(setp[0], setp[1], setp[2]);
             this.blendObj.rotation.set(setr[0], setr[1], setr[2]);
             this.blendObj.scale.x += sets;
             this.blendObj.scale.y += sets;
             this.blendObj.scale.z += sets;
+            this.blendObj.castShadow = true;
+            this.blendObj.receiveShadow = true;
             this.add(this.blendObj);
 
         });
@@ -175,6 +176,7 @@ class MyWorld extends THREE.Scene {
         this.tmpLight.position.set(x, y, z);
         this.tmpLight.castShadow = true;
         this.add(this.tmpLight);
+        this.add(new THREE.PointLightHelper(this.tmpLight));
 
     }
 
@@ -213,8 +215,8 @@ class MySun extends THREE.SpotLight {
         super(0xffffff);
         this.besarLangkah = besarLangkah;
         this.castShadow = true;
-        this.position.y = 7;
-        this.decay = 0;
+        this.position.y = 5;
+        this.penumbra = 0.5;
 
     }
 
