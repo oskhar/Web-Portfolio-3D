@@ -1,8 +1,6 @@
 import * as THREE from '../../node_modules/three/build/three.module.js';
 import { GLTFLoader } from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-
 import { AnalogControl } from './AnalogControl.js';
-import { CubeMaker } from './CubeMaker.js';
 
 // (main) Class
 class App extends THREE.WebGLRenderer {
@@ -109,7 +107,7 @@ class MyWorld extends THREE.Scene {
         this.add(new THREE.AmbientLight(0xffffff, 0.2));
 
         // Create user
-        this.user = new CubeMaker(besarLangkah);
+        this.user = new MyCube(besarLangkah);
         this.add(this.user);
 
         // Create ground
@@ -184,6 +182,147 @@ class MyWorld extends THREE.Scene {
 
 }
 
+// Class
+class MyEye extends THREE.PerspectiveCamera {
+
+    // Constructor
+    constructor (fov, asp, nea, far) {
+
+        super(fov, asp, nea, far);
+        this.position.z = 10;
+        this.position.y = 1.5;
+        this.rotation.x -= 0.1;
+
+    }
+
+    // Method
+    gerakan (corz, corx) {
+
+        this.position.z -= corz;
+        this.position.x -= corx;
+
+    }
+
+}
+
+// Class
+class MySun extends THREE.SpotLight {
+
+    // Constructor
+    constructor (besarLangkah) {
+
+        // Atribute
+        super(0xffffff);
+        this.besarLangkah = besarLangkah;
+        this.castShadow = true;
+        this.position.y = 5;
+        this.penumbra = 0.5;
+
+    }
+
+    // Method
+    depan () {
+
+        this.position.z -= this.besarLangkah;
+        this.target.position.z -= this.besarLangkah;
+        this.target.updateMatrixWorld();
+
+    }
+
+    // Method
+    belakang () {
+
+        this.position.z += this.besarLangkah;
+        this.target.position.z += this.besarLangkah;
+        this.target.updateMatrixWorld();
+
+    }
+
+    // Method
+    kanan () {
+
+        this.position.x += this.besarLangkah;
+        this.target.position.x += this.besarLangkah;
+        this.target.updateMatrixWorld();
+
+    }
+
+    // Method
+    kiri () {
+
+        this.position.x -= this.besarLangkah;
+        this.target.position.x -= this.besarLangkah;
+        this.target.updateMatrixWorld();
+
+    }
+
+}
+
+// Class
+class MyCube extends THREE.Mesh {
+
+    // Constructor
+    constructor (besarLangkah) {
+
+        super(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({
+            color: 0xff0ac0
+        }));
+
+        this.besarLangkah = besarLangkah;
+        this.position.set(0, -0.75, 0);
+        this.receiveShadow = true;
+        this.castShadow = true;
+        this.rangeRender = 0;
+
+    }
+
+    // Method
+    jump () {
+
+        let i = 0;
+
+        if (this.rangeRender <= 50) {
+            this.position.y += 0.05;
+        } else if (this.rangeRender <= 100) {
+            this.position.y -= 0.05;
+        }
+
+    }
+
+    // Method
+    depan () {
+
+        this.position.z -= this.besarLangkah;
+        this.rotation.x -= this.besarLangkah;
+
+    }
+
+    // Method
+    belakang () {
+
+        this.position.z += this.besarLangkah;
+        this.rotation.x += this.besarLangkah;
+
+    }
+
+    // Method
+    kanan () {
+
+        this.position.x += this.besarLangkah;
+        this.rotation.z += this.besarLangkah;
+
+    }
+
+    // Method
+    kiri () {
+
+        this.position.x -= this.besarLangkah;
+        this.rotation.z -= this.besarLangkah;
+
+    }
+
+}
+
 // Run
 let run = new App();
 
@@ -202,6 +341,8 @@ document.body.onresize = function () {
    run.eye.aspect = innerWidth/innerHeight;
    run.eye.updateProjectionMatrix();
 };
+
+// Mouse control
 
 // Analog control
 window.touchAnalog = function(event) {
@@ -234,7 +375,9 @@ window.touchAnalog = function(event) {
             for (let k = 0; k < tmpList[i].length; k++) {
                 run.keyboard[tmpList[i][k]] = true;
             }
+
         }
+        
     }
 }
 window.addEventListener('touchstart', touchAnalog, false);
