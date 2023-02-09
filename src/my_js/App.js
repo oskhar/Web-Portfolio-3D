@@ -99,7 +99,7 @@ class MyWorld extends THREE.Scene {
         // Atribute
         super();
         this.tmpLight = new THREE.PointLight(0x0066ff, 2, 50);
-        this.background = new THREE.Color(0x121212);
+        this.background = new THREE.Color(0x010101);
 
         // Create sun
         this.sun = new MySun(besarLangkah);
@@ -122,11 +122,11 @@ class MyWorld extends THREE.Scene {
         this.add(this.meshGround);
 
         // Create 3d object
-        this.addBlend('./lib/asset_3d/police.glb', [0, -1, 0], [0, -1, 0], 0);
-        this.addBlend('./lib/asset_3d/lightpost.glb', [3, -1, -20], [0, 0, 0], 2.5);
+        this.addBlend('./lib/asset_3d/police.glb', [0, -1, -30], [0, -1, 0]);
 
         // Create lamp
-        this.addLamp(3, 2, -19);
+        this.addBlend('./lib/asset_3d/lightpost.glb', [3, -1, -40], [0, 0, 0], [2.5, 2.5, 2.5]);
+        this.addLamp(3, 2, -39);
 
     }
 
@@ -151,16 +151,16 @@ class MyWorld extends THREE.Scene {
     }
 
     // Method
-    addBlend (path, setp, setr, sets) {
+    addBlend (path, setp = [0, 0, 0], setr = [0, 0, 0], sets = [0, 0, 0]) {
 
         new GLTFLoader().load(path, result => {
 
             this.blendObj = result.scene;
             this.blendObj.position.set(setp[0], setp[1], setp[2]);
             this.blendObj.rotation.set(setr[0], setr[1], setr[2]);
-            this.blendObj.scale.x += sets;
-            this.blendObj.scale.y += sets;
-            this.blendObj.scale.z += sets;
+            this.blendObj.scale.x += sets[0];
+            this.blendObj.scale.y += sets[1];
+            this.blendObj.scale.z += sets[2];
             this.blendObj.castShadow = true;
             this.blendObj.receiveShadow = true;
             this.add(this.blendObj);
