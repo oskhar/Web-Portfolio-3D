@@ -2,7 +2,7 @@ import * as THREE from '../../node_modules/three/build/three.module.js';
 import { GLTFLoader } from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 
 import { AnalogControl } from './AnalogControl.js';
-import { MyCube } from './CubeMaker.js';
+import { CubeMaker } from './CubeMaker.js';
 
 // (main) Class
 class App extends THREE.WebGLRenderer {
@@ -109,7 +109,7 @@ class MyWorld extends THREE.Scene {
         this.add(new THREE.AmbientLight(0xffffff, 0.2));
 
         // Create user
-        this.user = new MyCube(besarLangkah);
+        this.user = new CubeMaker(besarLangkah);
         this.add(this.user);
 
         // Create ground
@@ -184,82 +184,6 @@ class MyWorld extends THREE.Scene {
 
 }
 
-// Class
-class MyEye extends THREE.PerspectiveCamera {
-
-    // Constructor
-    constructor (fov, asp, nea, far) {
-
-        super(fov, asp, nea, far);
-        this.position.z = 10;
-        this.position.y = 1.5;
-        this.rotation.x -= 0.1;
-
-    }
-
-    // Method
-    gerakan (corz, corx) {
-
-        this.position.z -= corz;
-        this.position.x -= corx;
-
-    }
-
-}
-
-// Class
-class MySun extends THREE.SpotLight {
-
-    // Constructor
-    constructor (besarLangkah) {
-
-        // Atribute
-        super(0xffffff);
-        this.besarLangkah = besarLangkah;
-        this.castShadow = true;
-        this.position.y = 5;
-        this.penumbra = 0.5;
-
-    }
-
-    // Method
-    depan () {
-
-        this.position.z -= this.besarLangkah;
-        this.target.position.z -= this.besarLangkah;
-        this.target.updateMatrixWorld();
-
-    }
-
-    // Method
-    belakang () {
-
-        this.position.z += this.besarLangkah;
-        this.target.position.z += this.besarLangkah;
-        this.target.updateMatrixWorld();
-
-    }
-
-    // Method
-    kanan () {
-
-        this.position.x += this.besarLangkah;
-        this.target.position.x += this.besarLangkah;
-        this.target.updateMatrixWorld();
-
-    }
-
-    // Method
-    kiri () {
-
-        this.position.x -= this.besarLangkah;
-        this.target.position.x -= this.besarLangkah;
-        this.target.updateMatrixWorld();
-
-    }
-
-}
-
 // Run
 let run = new App();
 
@@ -310,9 +234,7 @@ window.touchAnalog = function(event) {
             for (let k = 0; k < tmpList[i].length; k++) {
                 run.keyboard[tmpList[i][k]] = true;
             }
-
         }
-        
     }
 }
 window.addEventListener('touchstart', touchAnalog, false);

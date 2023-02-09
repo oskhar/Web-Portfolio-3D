@@ -1,5 +1,5 @@
 // Class
-class MyCube extends THREE.Mesh {
+class CubeMaker extends THREE.Mesh {
 
     // Constructor
     constructor (besarLangkah) {
@@ -64,4 +64,4 @@ class MyCube extends THREE.Mesh {
 }
 
 // Export
-export {MyCube};
+export {CubeMaker};
