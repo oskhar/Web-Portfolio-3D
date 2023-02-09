@@ -98,8 +98,8 @@ class MyWorld extends THREE.Scene {
 
         // Atribute
         super();
-        this.tmpLight = new THREE.PointLight(0x0066ff, 2);
-        this.background = new THREE.Color(0x111111);
+        this.tmpLight = new THREE.PointLight(0x0066ff, 2, 50);
+        this.background = new THREE.Color(0x121212);
 
         // Create sun
         this.sun = new MySun(besarLangkah);
@@ -126,7 +126,7 @@ class MyWorld extends THREE.Scene {
         this.addBlend('./lib/asset_3d/lightpost.glb', [3, -1, -20], [0, 0, 0], 2.5);
 
         // Create lamp
-        this.addLamp(3, 1.5, -19);
+        this.addLamp(3, 2, -19);
 
     }
 
@@ -221,36 +221,52 @@ class MySun extends THREE.SpotLight {
     // Method
     depan () {
 
-        this.position.z -= this.besarLangkah;
-        this.target.position.z -= this.besarLangkah;
-        this.target.updateMatrixWorld();
+        if (this.position.z > -130) {
+
+            this.position.z -= this.besarLangkah;
+            this.target.position.z -= this.besarLangkah;
+            this.target.updateMatrixWorld();
+
+        }
 
     }
 
     // Method
     belakang () {
 
-        this.position.z += this.besarLangkah;
-        this.target.position.z += this.besarLangkah;
-        this.target.updateMatrixWorld();
+        if (this.position.z < 14) {
+
+            this.position.z += this.besarLangkah;
+            this.target.position.z += this.besarLangkah;
+            this.target.updateMatrixWorld();
+
+        }
 
     }
 
     // Method
     kanan () {
 
-        this.position.x += this.besarLangkah;
-        this.target.position.x += this.besarLangkah;
-        this.target.updateMatrixWorld();
+        if (this.position.x < 14) {
+
+            this.position.x += this.besarLangkah;
+            this.target.position.x += this.besarLangkah;
+            this.target.updateMatrixWorld();
+
+        }
 
     }
 
     // Method
     kiri () {
 
-        this.position.x -= this.besarLangkah;
-        this.target.position.x -= this.besarLangkah;
-        this.target.updateMatrixWorld();
+        if (this.position.x > -14) {
+
+            this.position.x -= this.besarLangkah;
+            this.target.position.x -= this.besarLangkah;
+            this.target.updateMatrixWorld();
+
+        }
 
     }
 
@@ -290,32 +306,48 @@ class MyCube extends THREE.Mesh {
     // Method
     depan () {
 
-        this.position.z -= this.besarLangkah;
-        this.rotation.x -= this.besarLangkah;
+        if (this.position.z > -130) {
+
+            this.position.z -= this.besarLangkah;
+            this.rotation.x -= this.besarLangkah;
+
+        }
 
     }
 
     // Method
     belakang () {
 
-        this.position.z += this.besarLangkah;
-        this.rotation.x += this.besarLangkah;
+        if (this.position.z < 14) {
+
+            this.position.z += this.besarLangkah;
+            this.rotation.x += this.besarLangkah;
+
+        }
 
     }
 
     // Method
     kanan () {
 
-        this.position.x += this.besarLangkah;
-        this.rotation.z += this.besarLangkah;
+        if (this.position.x < 14) {
+
+            this.position.x += this.besarLangkah;
+            this.rotation.z += this.besarLangkah;
+
+        }
 
     }
 
     // Method
     kiri () {
 
-        this.position.x -= this.besarLangkah;
-        this.rotation.z -= this.besarLangkah;
+        if (this.position.x > -14) {
+
+            this.position.x -= this.besarLangkah;
+            this.rotation.z -= this.besarLangkah;
+
+        }
 
     }
 
