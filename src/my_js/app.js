@@ -279,8 +279,6 @@ document.body.onresize = function () {
    run.eye.updateProjectionMatrix();
 };
 
-// Mouse control
-
 // Analog control
 window.touchAnalog = function(event) {
     let x = 0, y = 0;
@@ -328,6 +326,7 @@ window.mobileCheck = function() {
   return check;
 };
 
+// Config mobile device
 if (mobileCheck()) {
     run.analog.addToDom();
     run.world.user.besarLangkah = 0.08;
