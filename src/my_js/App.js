@@ -114,10 +114,10 @@ class MyWorld extends THREE.Scene {
         this.layoutGround = new THREE.MeshLambertMaterial({
             color: 0x33cc99
         });
-        this.ground = new THREE.PlaneGeometry(20, 100, 1, 5);
+        this.ground = new THREE.PlaneGeometry(30, 150, 1, 5);
         this.meshGround = new THREE.Mesh(this.ground, this.layoutGround);
         this.meshGround.receiveShadow = true;
-        this.meshGround.position.set(0, -1, -40);
+        this.meshGround.position.set(0, -1, -60);
         this.meshGround.rotation.x = -Math.PI/2;
         this.add(this.meshGround);
 
@@ -175,7 +175,6 @@ class MyWorld extends THREE.Scene {
         this.tmpLight.position.set(x, y, z);
         this.tmpLight.castShadow = true;
         this.add(this.tmpLight);
-        this.add(new THREE.PointLightHelper(this.tmpLight));
 
     }
 
