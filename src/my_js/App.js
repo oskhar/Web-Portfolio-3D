@@ -141,10 +141,7 @@ class MyWorld extends THREE.Scene {
         this.add(this.homeLamp);
 
         // Create action area
-        this.teksture = new THREE.TextureLoader().load('./lib/img/areaAction1.png');
-        this.material = new THREE.SpriteMaterial({map: this.teksture});
-        this.sprite = new THREE.Sprite(this.material);
-        this.add(this.sprite);
+        this.addAreaAction();
 
     }
 
@@ -203,6 +200,15 @@ class MyWorld extends THREE.Scene {
         this.tmpLight.castShadow = true;
         this.add(this.tmpLight);
 
+    }
+
+    // Method
+    addAreaAction () {
+        this.tmpTex = new THREE.TextureLoader().load('./lib/img/areaAction1.png');
+        this.tmpMat = new THREE.SpriteMaterial({map: this.tmpTex});
+        this.tmpSpr = new THREE.Sprite(this.tmpMat);
+        this.tmpSpr.scale.x += 10;
+        this.add(this.tmpSpr);
     }
 
 }
