@@ -123,6 +123,7 @@ class MyWorld extends THREE.Scene {
 
         // Create 3d object
         this.addBlend('./lib/asset_3d/police.glb', [0, -1, -30], [0, -1, 0]);
+        this.addBlend('./lib/asset_3d/floorFull.glb', [0, -1, 0], [0, 0, 0], [5, 2, 5]);
 
         // Create lamp
         this.addBlend('./lib/asset_3d/lightpost.glb', [3, -1, -40], [0, 0, 0], [2.5, 2.5, 2.5]);
