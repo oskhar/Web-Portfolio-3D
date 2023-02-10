@@ -141,7 +141,10 @@ class MyWorld extends THREE.Scene {
         this.add(this.homeLamp);
 
         // Create action area
-        this.addAreaAction();
+        for (let i = 0; i < Object.keys(Model.actionData).length; i++) {
+            this.addAreaAction(Model.actionData[i]['path'], Model.actionData[i]['position'], Model.actionData[i]['scale']);
+            
+        }
 
     }
 
@@ -203,11 +206,14 @@ class MyWorld extends THREE.Scene {
     }
 
     // Method
-    addAreaAction () {
-        this.tmpTex = new THREE.TextureLoader().load('./lib/img/areaAction1.png');
+    addAreaAction (path, setp, sets) {
+        this.tmpTex = new THREE.TextureLoader().load(path);
         this.tmpMat = new THREE.SpriteMaterial({map: this.tmpTex});
         this.tmpSpr = new THREE.Sprite(this.tmpMat);
-        this.tmpSpr.scale.x += 10;
+        this.tmpSpr.position.set(setp[0], setp[1], setp[2])
+        this.tmpSpr.scale.x += sets[0];
+        this.tmpSpr.scale.y += sets[1];
+        this.tmpSpr.scale.z += sets[2];
         this.add(this.tmpSpr);
     }
 

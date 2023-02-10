@@ -120,4 +120,18 @@ var objectData = [
     }
 ];
 
-export {lampData, objectData};
+// ModelAction
+var actionData = [
+    {
+        "path": "./lib/img/areaAction1.png",
+        "position": [13, 0, -20],
+        "scale": [1, 1, 1]
+    },
+    {
+        "path": "./lib/img/binkai.svg",
+        "position": [1, 0.3, -3.5],
+        "scale": [0, 0, 0]
+    }
+];
+
+export {lampData, objectData, actionData};
