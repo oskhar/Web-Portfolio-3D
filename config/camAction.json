@@ -1,0 +1,14 @@
+{
+    "intro": {
+        "position": [0, 0, 0],
+        "rotation": [0, 0, 0]
+    },
+    "home": {
+        "position": [0, 0, 0],
+        "rotation": [0, 0, 0]
+    },
+    "account": {
+        "position": [0, 0, 0],
+        "rotation": [0, 0, 0]
+    }
+}
