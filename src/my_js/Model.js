@@ -117,6 +117,12 @@ var objectData = [
         "position": [17.8, -0.9, -29.7],
         "rotation": [0, 0, 0],
         "scale": [1.7, 1.7, 1.7]
+    },
+    {
+        "path": "./lib/asset_3d/lampSquareCeiling.glb",
+        "position": [19, 6, -24],
+        "rotation": [0, 0, 0],
+        "scale": [1.7, 1.7, 1.7]
     }
 ];
 
@@ -128,10 +134,15 @@ var actionData = [
         "scale": [1, 1, 1]
     },
     {
-        "path": "./lib/img/binkai.svg",
+        "path": "./lib/img/bingkai1.png",
         "position": [1, 0.3, -3.5],
         "scale": [0, 0, 0]
     }
 ];
 
-export {lampData, objectData, actionData};
+var areaData = [
+    [13, -20],
+    [1, -3]
+];
+
+export {lampData, objectData, actionData, areaData};
