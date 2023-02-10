@@ -36,7 +36,7 @@ var objectData = [
     },
     {
         "path": "./lib/asset_3d/rocketFinsA.glb",
-        "position": [0, -1, 0],
+        "position": [-1, -1, -2],
         "rotation": [0, 0, 0],
         "scale": [0, 0, 0]
     },
