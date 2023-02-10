@@ -12,10 +12,11 @@ class App extends THREE.WebGLRenderer {
         // Atribute
         super();
         this.world = new MyWorld(0.05);
-        this.eye = new MyEye(45, innerWidth/innerHeight, 1, 100);
+        this.eye = new MyEye(45, innerWidth/innerHeight, 1, 50);
         this.keyboard = [];
         this.analog = new AnalogControl();
         this.rangeSide = 3;
+        this.homeLampOff = true;
 
         // Set latar
         this.latar = document.createElement('div');
@@ -114,7 +115,7 @@ class MyWorld extends THREE.Scene {
         this.layoutGround = new THREE.MeshLambertMaterial({
             color: 0x33cc99
         });
-        this.ground = new THREE.PlaneGeometry(30, 150, 1, 5);
+        this.ground = new THREE.PlaneGeometry(50, 150, 1, 5);
         this.meshGround = new THREE.Mesh(this.ground, this.layoutGround);
         this.meshGround.receiveShadow = true;
         this.meshGround.position.set(0, -1, -60);
@@ -129,9 +130,14 @@ class MyWorld extends THREE.Scene {
 
         // Create lamp
         for (let i = 0; i < Object.keys(Model.lampData).length; i++) {
-            this.addBlend(Model.lampData[i]['path'], Model.lampData[i]['position'], Model.lampData[i]['rotation'], Model.lampData[i]['scale']);
-            this.addLamp(Model.lampData[i]['light']);
+            this.addBlend(Model.lampData[i]['path'], Model.lampData[i]['position'], Model.lampData[i]['rotation'], Model.lampData[i]['scale'], false);
+            this.addLamp(Model.lampData[i]['light'], Model.lampData[i]['color']);
         }
+
+        this.homeLamp = new THREE.PointLight(0xffffff, 10/3, 1, 2);
+        this.homeLamp.position.set(19, 5, -24);
+        this.homeLamp.castShadow = true;
+        this.add(this.homeLamp);
 
     }
 
@@ -156,18 +162,26 @@ class MyWorld extends THREE.Scene {
     }
 
     // Method
-    addBlend (path, setp = [0, 0, 0], setr = [0, 0, 0], sets = [0, 0, 0]) {
+    addBlend (path, setp = [0, 0, 0], setr = [0, 0, 0], sets = [0, 0, 0], shadow = true) {
 
         new GLTFLoader().load(path, result => {
 
             this.blendObj = result.scene;
+            if (shadow) {
+                this.blendObj.traverse( function ( object ) {
+
+                    if ( object.isMesh ) {
+                        object.castShadow = true;
+                        object.receiveShadow = true;
+                    }
+
+                });
+            }
             this.blendObj.position.set(setp[0], setp[1], setp[2]);
             this.blendObj.rotation.set(setr[0], setr[1], setr[2]);
             this.blendObj.scale.x += sets[0];
             this.blendObj.scale.y += sets[1];
             this.blendObj.scale.z += sets[2];
-            this.blendObj.castShadow = true;
-            this.blendObj.receiveShadow = true;
             this.add(this.blendObj);
 
         });
@@ -175,10 +189,10 @@ class MyWorld extends THREE.Scene {
     }
 
     // Method
-    addLamp (setp) {
+    addLamp (set, color) {
 
-        this.tmpLight = new THREE.PointLight(0x0066ff, 2, 50);
-        this.tmpLight.position.set(setp[0], setp[1], setp[2]);
+        this.tmpLight = new THREE.PointLight(color, set[3]/3, set[3], set[4]);
+        this.tmpLight.position.set(set[0], set[1], set[2]);
         this.tmpLight.castShadow = true;
         this.add(this.tmpLight);
 
@@ -193,6 +207,7 @@ class MyEye extends THREE.PerspectiveCamera {
     constructor (fov, asp, nea, far) {
 
         super(fov, asp, nea, far);
+        this.filmGauge = 4;
         this.position.z = 10;
         this.position.y = 1.5;
         this.rotation.x -= 0.1;
@@ -253,13 +268,13 @@ class MySun extends THREE.SpotLight {
     // Method
     kanan () {
 
-        if (this.position.x < 14) {
+        // if (this.position.x < 14) {
 
             this.position.x += this.besarLangkah;
             this.target.position.x += this.besarLangkah;
             this.target.updateMatrixWorld();
 
-        }
+        // }
 
     }
 
@@ -336,12 +351,12 @@ class MyCube extends THREE.Mesh {
     // Method
     kanan () {
 
-        if (this.position.x < 14) {
+        // if (this.position.x < 14) {
 
             this.position.x += this.besarLangkah;
             this.rotation.z += this.besarLangkah;
 
-        }
+        // }
 
     }
 
@@ -364,7 +379,19 @@ let run = new App();
 
 // Keyboard control
 document.body.onkeydown = function (e) {
+    
     run.keyboard[e.key] = true;
+
+    if (e.key == "o") {
+        if (run.homeLampOff) {
+            run.world.homeLamp.distance = 10;
+            run.homeLampOff = false;
+        } else {
+            run.world.homeLamp.distance = 1;
+            run.homeLampOff = true;
+        }
+    }
+
 }
 
 document.body.onkeyup = function (e) {
