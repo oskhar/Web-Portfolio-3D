@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="drawing[areaAction].svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.46868868"
+     inkscape:cx="354.17967"
+     inkscape:cy="521.66824"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3332">
+      <stop
+         style="stop-color:#ffd900;stop-opacity:1;"
+         offset="0.59288752"
+         id="stop3328" />
+      <stop
+         style="stop-color:#ddff55;stop-opacity:0;"
+         offset="1"
+         id="stop3330" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3332"
+       id="linearGradient3334"
+       x1="108.2979"
+       y1="297.00681"
+       x2="107.82378"
+       y2="-0.044376623"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1969422,0,0,1,-18.606897,3.1750001)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect234"
+       style="opacity:0.5;fill:url(#linearGradient3334);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:6.83263;stroke-linejoin:bevel;paint-order:markers fill stroke"
+       d="M 195.85379,5.1904285 109.13322,300.34337 C 119.85724,300.09275 14.146208,5.1904285 14.146208,5.1904285 Z"
+       sodipodi:nodetypes="cccc" />
+  </g>
+</svg>

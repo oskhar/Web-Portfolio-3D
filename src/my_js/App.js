@@ -134,10 +134,17 @@ class MyWorld extends THREE.Scene {
             this.addLamp(Model.lampData[i]['light'], Model.lampData[i]['color']);
         }
 
+        // Create lamp on my Home
         this.homeLamp = new THREE.PointLight(0xffffff, 10/3, 1, 2);
         this.homeLamp.position.set(19, 5, -24);
         this.homeLamp.castShadow = true;
         this.add(this.homeLamp);
+
+        // Create action area
+        this.teksture = new THREE.TextureLoader().load('./lib/img/areaAction1.png');
+        this.material = new THREE.SpriteMaterial({map: this.teksture});
+        this.sprite = new THREE.Sprite(this.material);
+        this.add(this.sprite);
 
     }
 
