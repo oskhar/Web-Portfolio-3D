@@ -1,6 +1,7 @@
 import * as THREE from '../../node_modules/three/build/three.module.js';
 import { GLTFLoader } from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import { AnalogControl } from './AnalogControl.js';
+import * as Model from './Model.js';
 
 // (main) Class
 class App extends THREE.WebGLRenderer {
@@ -98,7 +99,6 @@ class MyWorld extends THREE.Scene {
 
         // Atribute
         super();
-        this.tmpLight = new THREE.PointLight(0x0066ff, 2, 50);
         this.background = new THREE.Color(0x010101);
 
         // Create sun
@@ -122,17 +122,21 @@ class MyWorld extends THREE.Scene {
         this.add(this.meshGround);
 
         // Create 3d object
-        this.addBlend('./lib/asset_3d/police.glb', [0, -1, -30], [0, -1, 0]);
-        this.addBlend('./lib/asset_3d/floorFull.glb', [0, -1, 0], [0, 0, 0], [5, 2, 5]);
+        for (let i = 0; i < Object.keys(Model.objectData).length; i++) {
+            this.addBlend(Model.objectData[i]['path'], Model.objectData[i]['position'], Model.objectData[i]['rotation'], Model.objectData[i]['scale']);
+            
+        }
 
         // Create lamp
-        this.addBlend('./lib/asset_3d/lightpost.glb', [3, -1, -40], [0, 0, 0], [2.5, 2.5, 2.5]);
-        this.addLamp(3, 2, -39);
+        for (let i = 0; i < Object.keys(Model.lampData).length; i++) {
+            this.addBlend(Model.lampData[i]['path'], Model.lampData[i]['position'], Model.lampData[i]['rotation'], Model.lampData[i]['scale']);
+            this.addLamp(Model.lampData[i]['light']);
+        }
 
     }
 
     // Method
-    addInstance (obj, trans) {
+    addInstance (trans) {
 
         this.tmpMesh = new THREE.InstancedMesh(
 
@@ -171,9 +175,10 @@ class MyWorld extends THREE.Scene {
     }
 
     // Method
-    addLamp (x, y, z) {
+    addLamp (setp) {
 
-        this.tmpLight.position.set(x, y, z);
+        this.tmpLight = new THREE.PointLight(0x0066ff, 2, 50);
+        this.tmpLight.position.set(setp[0], setp[1], setp[2]);
         this.tmpLight.castShadow = true;
         this.add(this.tmpLight);
 
