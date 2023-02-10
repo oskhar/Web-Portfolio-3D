@@ -1,3 +1,4 @@
+// ModelLamp
 var lampData = [
     {
         "path": "./lib/asset_3d/lightpost.glb",
@@ -25,6 +26,7 @@ var lampData = [
     }
 ];
 
+// ModelObject
 var objectData = [
     {
         "path": "./lib/asset_3d/sedanSports.glb",
