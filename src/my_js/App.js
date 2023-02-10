@@ -100,7 +100,7 @@ class MyWorld extends THREE.Scene {
 
         // Atribute
         super();
-        this.background = new THREE.Color(0x010101);
+        this.background = new THREE.Color(0x101010);
 
         // Create sun
         this.sun = new MySun(besarLangkah);

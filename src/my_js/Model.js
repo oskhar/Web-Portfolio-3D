@@ -35,6 +35,12 @@ var objectData = [
         "scale": [0, 0, 0]
     },
     {
+        "path": "./lib/asset_3d/rocketFinsA.glb",
+        "position": [0, -1, 0],
+        "rotation": [0, 0, 0],
+        "scale": [0, 0, 0]
+    },
+    {
         "path": "./lib/asset_3d/floorFull.glb",
         "position": [14, -1, -20],
         "rotation": [0, 0, 0],
@@ -72,26 +78,26 @@ var objectData = [
     },
     {
         "path": "./lib/asset_3d/laptop.glb",
-        "position": [22.3, 0.15, -29.9],
+        "position": [22.8, 0.15, -29.9],
         "rotation": [0, 0, 0],
         "scale": [1.7, 1.7, 1.7],
     },
     {
         "path": "./lib/asset_3d/computerScreen.glb",
-        "position": [23.1, 0.15, -30.3],
+        "position": [23.6, 0.15, -30.3],
         "rotation": [0, -0.5, 0],
         "scale": [1, 1, 1],
     },
     {
-        "path": "./lib/asset_3d/book.glb",
-        "position": [23.1, 0.15, -30.3],
+        "path": "./lib/asset_3d/books.glb",
+        "position": [22.2, 0.15, -30.3],
         "rotation": [0, 0, 0],
-        "scale": [1, 1, 1],
+        "scale": [1.7, 1.7, 1.7],
     },
     {
         "path": "./lib/asset_3d/chairDesk.glb",
-        "position": [23.3, -0.8, -29.2],
-        "rotation": [0, -(Math.PI/2)*2, 0],
+        "position": [23.5, -0.8, -29.2],
+        "rotation": [0, -(Math.PI), 0],
         "scale": [1.7, 1.7, 1.7],
     },
     {
