@@ -128,7 +128,7 @@ var objectData = [
     },
     {
         "path": "./lib/asset_3d/rocketFinsA.glb",
-        "position": [-1, -1, -5],
+        "position": [20, -1, -15],
         "rotation": [0, 0, 0],
         "scale": [0, 0, 0]
     }
@@ -140,6 +140,11 @@ var actionData = [
         "path": "./lib/img/areaAction1.png",
         "position": [13, 0, -20],
         "scale": [1, 1, 1]
+    },
+    {
+        "path": "./lib/img/bingkai1.png",
+        "position": [1, 0.3, -3.5],
+        "scale": [0, 0, 0]
     },
     {
         "path": "./lib/img/bingkai1.png",
