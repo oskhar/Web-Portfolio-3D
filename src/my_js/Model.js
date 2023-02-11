@@ -148,7 +148,7 @@ var actionData = [
     },
     {
         "path": "./lib/img/bingkai1.png",
-        "position": [1, 0.3, -3.5],
+        "position": [22, 0.3, -13.5],
         "scale": [0, 0, 0]
     }
 ];
