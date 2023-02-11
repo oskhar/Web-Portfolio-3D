@@ -125,6 +125,12 @@ var objectData = [
         "position": [-1, -1, -5],
         "rotation": [0, 0, 0],
         "scale": [0, 0, 0]
+    },
+    {
+        "path": "./lib/asset_3d/rocketFinsA.glb",
+        "position": [-1, -1, -5],
+        "rotation": [0, 0, 0],
+        "scale": [0, 0, 0]
     }
 ];
 
