@@ -35,12 +35,6 @@ var objectData = [
         "scale": [0, 0, 0]
     },
     {
-        "path": "./lib/asset_3d/rocketFinsA.glb",
-        "position": [-1, -1, -5],
-        "rotation": [0, 0, 0],
-        "scale": [0, 0, 0]
-    },
-    {
         "path": "./lib/asset_3d/floorFull.glb",
         "position": [14, -1, -20],
         "rotation": [0, 0, 0],
@@ -123,6 +117,12 @@ var objectData = [
         "position": [19, 6, -24],
         "rotation": [0, 0, 0],
         "scale": [1.7, 1.7, 1.7]
+    },
+    {
+        "path": "./lib/asset_3d/rocketFinsA.glb",
+        "position": [-1, -1, -5],
+        "rotation": [0, 0, 0],
+        "scale": [0, 0, 0]
     }
 ];
 
