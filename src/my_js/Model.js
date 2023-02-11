@@ -118,6 +118,8 @@ var objectData = [
         "rotation": [0, 0, 0],
         "scale": [1.7, 1.7, 1.7]
     },
+
+    // Info blend
     {
         "path": "./lib/asset_3d/rocketFinsA.glb",
         "position": [-1, -1, -5],
