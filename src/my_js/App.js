@@ -75,7 +75,7 @@ class App extends THREE.WebGLRenderer {
             this.eye.gerakan(0, -this.rangeSide + (this.eye.position.x - this.world.user.position.x));
 
         // Action for jump
-        if (this.keyboard[' '] && this.world.user.rangeRender == 0) {
+        if (this.keyboard['naik'] && this.world.user.rangeRender == 0) {
             this.world.user.rangeRender = 1;
         }
         if (this.world.user.rangeRender != 0) {
