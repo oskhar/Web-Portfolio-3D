@@ -12,7 +12,7 @@ class App extends THREE.WebGLRenderer {
         // Atribute
         super();
         this.world = new MyWorld(0.05);
-        this.eye = new MyEye(45, innerWidth/innerHeight, 1, 50);
+        this.eye = new MyEye(45, innerWidth/innerHeight, 1, 5000);
         this.keyboard = [];
         this.analog = new AnalogControl();
         this.rangeSide = 3;
@@ -146,6 +146,45 @@ class MyWorld extends THREE.Scene {
         this.homeLamp.castShadow = true;
         this.add(this.homeLamp);
 
+
+        this.spritey = this.makeTextSprite( 
+            "Tes", 
+            { fontsize: 18, textColor: {r:255, g:255, b:255, a:1.0}}
+        );
+        this.spritey.position.set(-31.6,0,8);
+        // this.add(this.spritey);
+
+    }
+
+    // Method
+    makeTextSprite( message, parameters ) {
+
+        if ( parameters === undefined ) parameters = {};
+        var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Courier New";
+        var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 18;
+        var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
+        var borderColor = parameters.hasOwnProperty("borderColor") ?parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+        var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?parameters["backgroundColor"] : { r:0, g:0, b:255, a:1.0 };
+        var textColor = parameters.hasOwnProperty("textColor") ?parameters["textColor"] : { r:0, g:0, b:0, a:1.0 };
+
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        context.font = "Bold " + fontsize + "px " + fontface;
+        var metrics = context.measureText( message );
+        var textWidth = metrics.width;
+
+        context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+        context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+        context.fillStyle = "rgba("+textColor.r+", "+textColor.g+", "+textColor.b+", 1.0)";
+        context.fillText( message, borderThickness, fontsize + borderThickness);
+
+        var texture = new THREE.Texture(canvas) 
+        texture.needsUpdate = true;
+        var spriteMaterial = new THREE.SpriteMaterial( { map: texture } );
+        var sprite = new THREE.Sprite( spriteMaterial );
+        sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
+        return sprite;
+
     }
 
     // Method
@@ -228,7 +267,7 @@ class MyEye extends THREE.PerspectiveCamera {
         super(fov, asp, nea, far);
         this.filmGauge = 4;
         this.position.z = 10;
-        this.position.y = 1.5;
+        this.position.y = 10;
         this.rotation.x -= 0.1;
 
     }

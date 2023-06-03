@@ -35,6 +35,12 @@ var objectData = [
         "scale": [0, 0, 0]
     },
     {
+        "path": "./lib/asset_3d/sedanSports.glb",
+        "position": [0, -1, -4],
+        "rotation": [0, -1, 0],
+        "scale": [0, 0, 0]
+    },
+    {
         "path": "./lib/asset_3d/floorFull.glb",
         "position": [14, -1, -20],
         "rotation": [0, 0, 0],
