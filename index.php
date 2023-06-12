@@ -20,7 +20,8 @@
     <script type="importmap">
         {
             "imports": {
-                "three": "./node_modules/three/build/three.module.js"
+                "three": "./node_modules/three/build/three.module.js",
+                "GLTFLoader": "./node_modules/three/examples/jsm/loaders/GLTFLoader.js"
             }
         }
     </script>
